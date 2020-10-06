@@ -7,3 +7,6 @@
 [submodule "Koopa/lib/imgui"]
 	path = Koopa/lib/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Koopa/lib/glm"]
+	path = Koopa/lib/glm
+	url = https://github.com/g-truc/glm.git
