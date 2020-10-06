@@ -1,0 +1,9 @@
+[submodule "Koopa/lib/spdlog"]
+	path = Koopa/lib/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "Koopa/lib/glfw"]
+	path = Koopa/lib/glfw
+	url = https://github.com/TheCherno/glfw.git
+[submodule "Koopa/lib/imgui"]
+	path = Koopa/lib/imgui
+	url = https://github.com/TheCherno/imgui
