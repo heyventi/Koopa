@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef KP_PLATFORM_WINDOWS
+#ifdef KP_DLL_LINK
 	#ifdef KP_BUILD_DLL
 		#define KOOPA_API __declspec(dllexport)
 	#else
 		#define KOOPA_API __declspec(dllimport)
 	#endif
+#else
+	#define KOOPA_API
+#endif
 #else
 	#error Koopa only supports Windows!
 #endif

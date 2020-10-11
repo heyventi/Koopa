@@ -14,6 +14,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Koopa/lib/glfw/include"
 IncludeDir["GLAD"] = "Koopa/lib/glad/include"
 IncludeDir["ImGui"] = "Koopa/lib/imgui"
+IncludeDir["GLM"] = "Koopa/lib/glm"
 
 group "Dependencies"
     include "Koopa/lib/GLFW"
@@ -23,9 +24,10 @@ group ""
 
 project "Koopa"
 	location "Koopa"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"	
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -36,7 +38,14 @@ project "Koopa"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/lib/glm/glm/**.hpp",
+		"%{prj.name}/lib/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -45,7 +54,8 @@ project "Koopa"
 		"%{prj.name}/lib/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.GLM}"
 	}
 
 	links
@@ -57,7 +67,6 @@ project "Koopa"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -67,31 +76,27 @@ project "Koopa"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
-
 	filter "configurations:Debug"
 		defines "KP_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "KP_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "KP_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"	
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -105,7 +110,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Koopa/lib/spdlog/include",
-		"Koopa/src"
+		"Koopa/src",
+		"%{IncludeDir.GLM}"
 	}
 
 	links
@@ -114,7 +120,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -125,14 +130,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "KP_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "KP_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "KP_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
