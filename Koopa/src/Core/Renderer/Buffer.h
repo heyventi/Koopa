@@ -50,7 +50,7 @@ namespace kp {
 			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
 		{}
 
-		uint32_t GetCompoenentCount() const
+		uint32_t GetComponentCount() const
 		{
 			switch (Type)
 			{
