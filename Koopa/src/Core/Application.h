@@ -11,6 +11,8 @@
 #include "Core/Renderer/Buffer.h"
 #include "Core/Renderer/VertexArray.h"
 
+#include "Core/Renderer/OrthographicCamera.h"
+
 namespace kp {
 
 	class KOOPA_API Application
@@ -38,8 +40,8 @@ namespace kp {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
+	private:
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;
