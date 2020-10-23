@@ -6,7 +6,13 @@ namespace kp {
 
 	class KOOPA_API Input
 	{
+    protected:
+        Input() = default;
+
 	public:
+        Input(const Input&) = delete;
+        Input& operator=(const Input&) = delete;
+
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }

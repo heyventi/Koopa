@@ -11,6 +11,8 @@ namespace kp {
 	class Renderer
 	{
 	public:
+        static void Renderer::Init();
+
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
 				

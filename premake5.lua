@@ -15,6 +15,7 @@ IncludeDir["GLFW"] = "Koopa/lib/glfw/include"
 IncludeDir["GLAD"] = "Koopa/lib/glad/include"
 IncludeDir["ImGui"] = "Koopa/lib/imgui"
 IncludeDir["GLM"] = "Koopa/lib/glm"
+IncludeDir["stb_image"] = "Koopa/lib/stb_image"
 
 group "Dependencies"
     include "Koopa/lib/GLFW"
@@ -40,7 +41,9 @@ project "Koopa"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/lib/glm/glm/**.hpp",
-		"%{prj.name}/lib/glm/glm/**.inl"
+		"%{prj.name}/lib/glm/glm/**.inl",
+        "%{prj.name}/lib/stb_image/**.h",
+        "%{prj.name}/lib/stb_image/**.cpp"		
 	}
 
 	defines
@@ -55,7 +58,8 @@ project "Koopa"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.GLM}"
+		"%{IncludeDir.GLM}",
+        "%{IncludeDir.stb_image}"		
 	}
 
 	links
@@ -111,7 +115,8 @@ project "Sandbox"
 	{
 		"Koopa/lib/spdlog/include",
 		"Koopa/src",
-		"%{IncludeDir.GLM}"
+		"%{IncludeDir.GLM}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
