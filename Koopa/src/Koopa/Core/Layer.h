@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core/Core.h"
-#include "Core/Timestep.h"
-#include "Core/Events/Event.h"
+#include "Koopa/Core/Core.h"
+#include "Koopa/Core/Timestep.h"
+#include "Koopa/Events/Event.h"
 
 namespace kp {
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Window.h"
-#include "Core/Renderer/GraphicsContext.h"
+#include "Koopa/Core/Window.h"
+#include "Koopa/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -31,7 +31,7 @@ namespace kp {
 
 	private:
 		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
+		Scope<GraphicsContext> m_Context;
 
 		struct WindowData
 		{

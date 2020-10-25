@@ -1,27 +1,28 @@
 #pragma once
 
-#include "Core/Application.h"
-#include "Core/Layer.h"
-#include "Core/Log.h"
+#include "Koopa/Core/Application.h"
+#include "Koopa/Core/Layer.h"
+#include "Koopa/Core/Log.h"
 
-#include "Core/Input.h"
-#include "Core/KeyCodes.h"
-#include "Core/MouseButtonCodes.h"
+#include "Koopa/Core/Input.h"
+#include "Koopa/Core/KeyCodes.h"
+#include "Koopa/Core/MouseButtonCodes.h"
+#include "Koopa/Renderer/OrthographicCameraController.h"
 
-#include "Core/ImGui/ImGuiLayer.h"
+#include "Koopa/ImGui/ImGuiLayer.h"
 
 // ---Renderer------------------------
-#include "Core/Renderer/Renderer.h"
-#include "Core/Renderer/RenderCommand.h"
+#include "Koopa/Renderer/Renderer.h"
+#include "Koopa/Renderer/RenderCommand.h"
 
-#include "Core/Renderer/Buffer.h"
-#include "Core/Renderer/Shader.h"
-#include "Core/Renderer/VertexArray.h"
-#include "Core/Renderer/Texture.h"
+#include "Koopa/Renderer/Buffer.h"
+#include "Koopa/Renderer/Shader.h"
+#include "Koopa/Renderer/VertexArray.h"
+#include "Koopa/Renderer/Texture.h"
 
-#include "Core/Renderer/OrthographicCamera.h"
+#include "Koopa/Renderer/OrthographicCamera.h"
 // -----------------------------------
 
 // ---Entry Point---------------------
-#include "Core/EntryPoint.h"
+#include "Koopa/Core/EntryPoint.h"
 // -----------------------------------

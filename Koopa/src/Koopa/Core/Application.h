@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Core.h"
-#include "Core/Events/Event.h"
-#include "Core/Events/ApplicationEvent.h"
-#include "Core/Window.h"
-#include "Core/LayerStack.h"
-#include "Core/ImGui/ImGuiLayer.h"
+#include "Koopa/Core/Core.h"
+#include "Koopa/Events/Event.h"
+#include "Koopa/Events/ApplicationEvent.h"
+#include "Koopa/Core/Window.h"
+#include "Koopa/Core/LayerStack.h"
+#include "Koopa/ImGui/ImGuiLayer.h"
 
-#include "Core/Renderer/Shader.h"
-#include "Core/Renderer/Buffer.h"
-#include "Core/Renderer/VertexArray.h"
+#include "Koopa/Renderer/Shader.h"
+#include "Koopa/Renderer/Buffer.h"
+#include "Koopa/Renderer/VertexArray.h"
 
-#include "Core/Renderer/OrthographicCamera.h"
+#include "Koopa/Renderer/OrthographicCamera.h"
 
 namespace kp {
 
@@ -34,10 +34,12 @@ namespace kp {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer = nullptr;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 
 	private:

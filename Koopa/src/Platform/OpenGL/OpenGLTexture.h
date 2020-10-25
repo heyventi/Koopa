@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Renderer/Texture.h"
+#include "Koopa/Renderer/Texture.h"
 
 namespace kp {
 

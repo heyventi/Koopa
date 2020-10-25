@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Core/Log.h"
+#include "Koopa/Core/Log.h"
 
 #ifdef KP_PLATFORM_WINDOWS
 	#include <Windows.h>

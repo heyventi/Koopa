@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RenderCommand.h"
-#include "Core/Renderer/RendererAPI.h"
+#include "Koopa/Renderer/RendererAPI.h"
 
 #include "OrthographicCamera.h"
 #include "Shader.h"
@@ -12,6 +12,7 @@ namespace kp {
 	{
 	public:
         static void Renderer::Init();
+		static void OnWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
@@ -26,6 +27,6 @@ namespace kp {
 			glm::mat4 ViewProjectionMatrix;
 		};
 
-		static SceneData* s_SceneData;
+		static Scope<SceneData> s_SceneData;
 	};
 }

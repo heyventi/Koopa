@@ -1,11 +1,11 @@
 #include "kppch.h"
 #include "Application.h"
 
-#include "Events/ApplicationEvent.h"
+#include "Koopa/Events/ApplicationEvent.h"
 #include "Log.h"
 
 #include <glad/glad.h>
-#include "Core/Renderer/Renderer.h"
+#include "Koopa/Renderer/Renderer.h"
 #include <glfw/glfw3.h>
 
 namespace kp {
@@ -56,6 +56,7 @@ namespace kp {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -91,9 +92,10 @@ namespace kp {
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
+			if (!m_Minimized)
 			{
-				layer->OnUpdate(timestep);
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
 			}
 
 			m_ImGuiLayer->Begin();
@@ -107,4 +109,17 @@ namespace kp {
 		}
 	}
 
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
+	}
 }

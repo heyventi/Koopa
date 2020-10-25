@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Core.h"
+#include "Koopa/Core/Core.h"
 
 namespace kp {
 
@@ -26,8 +26,9 @@ namespace kp {
 		virtual std::pair<float, float> GetMousePositionImpl() = 0;
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;
+
 	private:
-		static Input* s_Instance;
+		static Scope<Input> s_Instance;
 	};
 
 }

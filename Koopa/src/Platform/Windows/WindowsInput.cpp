@@ -1,12 +1,12 @@
 #include "kppch.h"
 #include "WindowsInput.h"
 
-#include "Core/Application.h"
+#include "Koopa/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace kp {
 
-	Input* Input::s_Instance = new WindowsInput();
+	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{

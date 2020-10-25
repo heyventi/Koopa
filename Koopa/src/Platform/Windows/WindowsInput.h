@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Input.h"
+#include "Koopa/Core/Input.h"
 
 namespace kp {
 

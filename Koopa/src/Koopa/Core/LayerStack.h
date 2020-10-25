@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Core.h"
+#include "Koopa/Core/Core.h"
 #include "Layer.h"
 
 #include <vector>

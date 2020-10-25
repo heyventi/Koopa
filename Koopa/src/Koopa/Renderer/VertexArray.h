@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Renderer/Buffer.h"
+#include "Koopa/Renderer/Buffer.h"
 
 namespace kp {
     class VertexArray

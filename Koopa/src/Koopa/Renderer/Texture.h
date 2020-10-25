@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Core/Core.h"
+#include "Koopa/Core/Core.h"
 
 namespace kp {
 

@@ -1,9 +1,9 @@
 #include "kppch.h"
 #include "WindowsWindow.h"
 
-#include "Core/Events/ApplicationEvent.h"
-#include "Core/Events/MouseEvent.h"
-#include "Core/Events/KeyEvent.h"
+#include "Koopa/Events/ApplicationEvent.h"
+#include "Koopa/Events/MouseEvent.h"
+#include "Koopa/Events/KeyEvent.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
@@ -50,7 +50,7 @@ namespace kp {
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);

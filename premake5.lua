@@ -75,7 +75,6 @@ project "Koopa"
 
 		defines
 		{
-			"KP_PLATFORM_WINDOWS",
 			"KP_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
@@ -126,11 +125,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			"KP_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "KP_DEBUG"

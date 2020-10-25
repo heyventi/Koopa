@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core.h"
-#include "Events/Event.h"
+#include "koopa/Core/Core.h"
+#include "koopa/Events/Event.h"
 
 namespace kp {
 

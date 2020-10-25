@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core/Layer.h"
-#include "Core/Events/KeyEvent.h"
-#include "Core/Events/MouseEvent.h"
-#include "Core/Events/ApplicationEvent.h"
+#include "Koopa/Core/Layer.h"
+#include "Koopa/Events/KeyEvent.h"
+#include "Koopa/Events/MouseEvent.h"
+#include "Koopa/Events/ApplicationEvent.h"
 
 namespace kp {
 
