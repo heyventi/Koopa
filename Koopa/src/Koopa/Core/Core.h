@@ -43,22 +43,6 @@
 	#error "Unknown platform!"
 #endif // End of platform detection
 
-
-// DLL support
-#ifdef KP_PLATFORM_WINDOWS
-	#if KP_DYNAMIC_LINK
-		#ifdef KP_BUILD_DLL
-			#define KOOPA_API __declspec(dllexport)
-		#else
-			#define KOOPA_API __declspec(dllimport)
-		#endif
-	#else
-		#define KOOPA_API
-	#endif
-#else
-	#error Koopa only supports Windows!
-#endif // End of DLL support
-
 #ifdef KP_DEBUG
 	#define KP_ENABLE_ASSERTS 
 #endif

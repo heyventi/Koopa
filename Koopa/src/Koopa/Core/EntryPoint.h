@@ -2,7 +2,7 @@
 
 #ifdef KP_PLATFORM_WINDOWS
 
-extern kp::Application* kp::CreateApplication();
+extern class kp::Application* kp::CreateApplication();
 
 int main(int argc, char** argv)
 {

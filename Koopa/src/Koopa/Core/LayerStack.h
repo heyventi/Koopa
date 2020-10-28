@@ -7,7 +7,7 @@
 
 namespace kp {
 
-	class KOOPA_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

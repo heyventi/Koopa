@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Koopa/Core/Core.h"
+
 #include "Koopa/Core/Application.h"
 #include "Koopa/Core/Layer.h"
 #include "Koopa/Core/Log.h"
@@ -13,6 +15,7 @@
 
 // ---Renderer------------------------
 #include "Koopa/Renderer/Renderer.h"
+#include "Koopa/Renderer/Renderer2D.h"
 #include "Koopa/Renderer/RenderCommand.h"
 
 #include "Koopa/Renderer/Buffer.h"
@@ -21,8 +24,4 @@
 #include "Koopa/Renderer/Texture.h"
 
 #include "Koopa/Renderer/OrthographicCamera.h"
-// -----------------------------------
-
-// ---Entry Point---------------------
-#include "Koopa/Core/EntryPoint.h"
 // -----------------------------------

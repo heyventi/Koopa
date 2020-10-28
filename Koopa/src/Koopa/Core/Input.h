@@ -4,7 +4,7 @@
 
 namespace kp {
 
-	class KOOPA_API Input
+	class Input
 	{
     protected:
         Input() = default;

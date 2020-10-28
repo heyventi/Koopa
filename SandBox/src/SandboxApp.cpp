@@ -1,6 +1,6 @@
 
-#include "kppch.h"
-#include <Koopa.h>
+#include "Koopa.h"
+#include "Koopa/Core/EntryPoint.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -9,13 +9,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Sandbox2D.h"
+
 class ExampleLayer : public kp::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(kp::VertexArray::Create());
+        m_VertexArray = kp::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -23,8 +25,7 @@ public:
 			0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		kp::Ref<kp::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(kp::VertexBuffer::Create(vertices, sizeof(vertices)));
+		kp::Ref<kp::VertexBuffer> vertexBuffer = kp::VertexBuffer::Create(vertices, sizeof(vertices));
 		kp::BufferLayout layout = {
 			{ kp::ShaderDataType::Float3, "a_Position" },
 			{ kp::ShaderDataType::Float4, "a_Color" }
@@ -33,11 +34,10 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		kp::Ref<kp::IndexBuffer> indexBuffer;
-		indexBuffer.reset(kp::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		kp::Ref<kp::IndexBuffer> indexBuffer = kp::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(kp::VertexArray::Create());
+        m_SquareVA = kp::VertexArray::Create();
 
         float squareVertices[5 * 4] = {
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -46,8 +46,7 @@ public:
             -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
         };
 
-		kp::Ref<kp::VertexBuffer> squareVB;
-		squareVB.reset(kp::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        kp::Ref<kp::VertexBuffer> squareVB = kp::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ kp::ShaderDataType::Float3, "a_Position" },
             { kp::ShaderDataType::Float2, "a_TexCoord" }
@@ -55,8 +54,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		kp::Ref<kp::IndexBuffer> squareIB;
-		squareIB.reset(kp::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+        kp::Ref<kp::IndexBuffer> squareIB = kp::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
@@ -134,8 +132,8 @@ public:
         m_Texture = kp::Texture2D::Create("assets/textures/checkerboard.png");
         m_KoopaLogoTexture = kp::Texture2D::Create("assets/textures/koopalogo.png");
 
-		std::dynamic_pointer_cast<kp::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<kp::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+        textureShader->Bind();
+        textureShader->SetInt("u_Texture", 0);
 	}
 
 	void OnUpdate(kp::Timestep ts) override
@@ -149,8 +147,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-        std::dynamic_pointer_cast<kp::OpenGLShader>(m_FlatColorShader)->Bind();
-        std::dynamic_pointer_cast<kp::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+        m_FlatColorShader->Bind();
+        m_FlatColorShader->SetFloat3("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
@@ -206,7 +204,8 @@ class Sandbox : public kp::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox()

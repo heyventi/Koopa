@@ -1,21 +1,19 @@
 #pragma once
 
 #include "Koopa/Core/Core.h"
+
+#include "Koopa/Core/Window.h"
 #include "Koopa/Events/Event.h"
 #include "Koopa/Events/ApplicationEvent.h"
-#include "Koopa/Core/Window.h"
+
 #include "Koopa/Core/LayerStack.h"
 #include "Koopa/ImGui/ImGuiLayer.h"
-
-#include "Koopa/Renderer/Shader.h"
-#include "Koopa/Renderer/Buffer.h"
-#include "Koopa/Renderer/VertexArray.h"
 
 #include "Koopa/Renderer/OrthographicCamera.h"
 
 namespace kp {
 
-	class KOOPA_API Application
+	class Application
 	{
 	public:
 		Application();
