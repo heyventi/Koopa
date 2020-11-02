@@ -7,13 +7,18 @@ extern class kp::Application* kp::CreateApplication();
 int main(int argc, char** argv)
 {
 	kp::Log::Init();
-	KP_CORE_WARN("Initialized Log!");
-	int a = 5;
-	KOOPA_INFO("Hello! Var={0}", a);
+    
+    KP_PROFILE_BEGIN_SESSION("Startup", "KoopaProfile-Startup.json");
+    auto app = kp::CreateApplication();
+    KP_PROFILE_END_SESSION();
 
-	auto app = kp::CreateApplication();
-	app->Run();
-	delete app;
+    KP_PROFILE_BEGIN_SESSION("Runtime", "KoopaProfile-Runtime.json");
+    app->Run();
+    KP_PROFILE_END_SESSION();
+
+    KP_PROFILE_BEGIN_SESSION("Startup", "KoopaProfile-Shutdown.json");
+    delete app;
+    KP_PROFILE_END_SESSION();
 }
 
 #endif

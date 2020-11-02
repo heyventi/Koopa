@@ -25,7 +25,7 @@ namespace kp {
 #define KP_CORE_INFO(...)     ::kp::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define KP_CORE_WARN(...)     ::kp::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define KP_CORE_ERROR(...)    ::kp::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define KP_CORE_FATAL(...)    ::kp::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define KP_CORE_CRITICAL(...) ::kp::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
 #define KOOPA_TRACE(...)	  ::kp::Log::GetClientLogger()->trace(__VA_ARGS__)

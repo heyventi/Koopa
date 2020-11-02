@@ -8,7 +8,7 @@
 
 #include "Koopa/Core/Input.h"
 #include "Koopa/Core/KeyCodes.h"
-#include "Koopa/Core/MouseButtonCodes.h"
+#include "Koopa/Core/MouseCodes.h"
 #include "Koopa/Renderer/OrthographicCameraController.h"
 
 #include "Koopa/ImGui/ImGuiLayer.h"

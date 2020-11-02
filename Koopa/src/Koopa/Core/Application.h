@@ -11,6 +11,8 @@
 
 #include "Koopa/Renderer/OrthographicCamera.h"
 
+int main(int argc, char** argv);
+
 namespace kp {
 
 	class Application
@@ -18,8 +20,6 @@ namespace kp {
 	public:
 		Application();
 		virtual ~Application();
-
-		void Run();
 
 		void OnEvent(Event& e);
 
@@ -31,6 +31,7 @@ namespace kp {
 		inline static Application& Get() { return *s_Instance; }
 
 	private:
+		void Run();
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
@@ -45,6 +46,7 @@ namespace kp {
 
 	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	// To be defined in CLIENT
