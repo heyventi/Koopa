@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Koopa/Core/Core.h"
+#include "Koopa/Core/Base.h"
 
 #include "Koopa/Core/Application.h"
 #include "Koopa/Core/Layer.h"
