@@ -14,27 +14,15 @@ Sandbox2D::Sandbox2D()
 void Sandbox2D::OnAttach()
 {
     m_CheckerboardTexture = kp::Texture2D::Create("assets/textures/Checkerboard.png");
+    m_SpriteSheet = kp::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 
-    //m_SquareVA = kp::VertexArray::Create();
-
-    //float squareVertices[5 * 4] = {
-    //    -0.5f, -0.5f, 0.0f,
-    //     0.5f, -0.5f, 0.0f,
-    //     0.5f,  0.5f, 0.0f,
-    //    -0.5f,  0.5f, 0.0f
-    //};
-
-    //kp::Ref<kp::VertexBuffer> squareVB = kp::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
-    //squareVB->SetLayout({
-    //    { kp::ShaderDataType::Float3, "a_Position" }
-    //    });
-    //m_SquareVA->AddVertexBuffer(squareVB);
-
-    //uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-    //kp::Ref<kp::IndexBuffer> squareIB = kp::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
-    //m_SquareVA->SetIndexBuffer(squareIB);
+    m_TextureStairs = kp::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128,128 }); 
+    m_TextureBarrel = kp::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 8, 2 }, { 128,128 }); 
+    m_TextureTree = kp::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128,128 }, { 1, 2 });
 
     m_FlatColorShader = kp::Shader::Create("assets/shaders/FlatColor.glsl");
+
+    m_CameraController.SetZoomLevel(5.0f);
 }
 
 void Sandbox2D::OnDetach()
@@ -59,6 +47,7 @@ void Sandbox2D::OnUpdate(kp::Timestep ts)
         kp::RenderCommand::Clear();
     }
 
+#if 0 
     {
         static float rotation = 0.0f;
         rotation += ts * 50.0f;
@@ -83,6 +72,12 @@ void Sandbox2D::OnUpdate(kp::Timestep ts)
         }
         kp::Renderer2D::EndScene();
     }
+#endif
+	kp::Renderer2D::BeginScene(m_CameraController.GetCamera());
+    kp::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureStairs);
+    kp::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureBarrel);
+    kp::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f }, { 1.0f, 2.0f }, m_TextureTree);
+    kp::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender()
