@@ -20,6 +20,7 @@
 
 #include "Koopa/Renderer/Buffer.h"
 #include "Koopa/Renderer/Shader.h"
+#include "Koopa/Renderer/Framebuffer.h"
 #include "Koopa/Renderer/VertexArray.h"
 #include "Koopa/Renderer/Texture.h"
 #include "Koopa/Renderer/SubTexture2D.h"

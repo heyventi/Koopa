@@ -21,7 +21,7 @@ private:
     // Temp
     kp::Ref<kp::VertexArray> m_SquareVA;
     kp::Ref<kp::Shader> m_FlatColorShader;
-        
+
     kp::Ref<kp::Texture2D> m_CheckerboardTexture;
     kp::Ref<kp::Texture2D> m_SpriteSheet;
     kp::Ref<kp::SubTexture2D> m_TextureStairs, m_TextureBarrel, m_TextureTree;

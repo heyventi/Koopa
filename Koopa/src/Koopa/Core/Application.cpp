@@ -33,12 +33,12 @@ namespace kp {
 		return 0;
 	}
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		KP_CORE_ASSERT(!s_Instance, "Application already exits!");
 
 		s_Instance = this;
-        m_Window = Window::Create();
+		m_Window = Window::Create(WindowProps(name));
         m_Window->SetEventCallback(KP_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
@@ -76,6 +76,11 @@ namespace kp {
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
+	}
+
+	void Application::Close()
+	{
+		m_Running = false;
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

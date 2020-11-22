@@ -16,7 +16,7 @@ int main(int argc, char** argv)
     app->Run();
     KP_PROFILE_END_SESSION();
 
-    KP_PROFILE_BEGIN_SESSION("Startup", "KoopaProfile-Shutdown.json");
+    KP_PROFILE_BEGIN_SESSION("Shutdown", "HazelProfile-Shutdown.json");
     delete app;
     KP_PROFILE_END_SESSION();
 }

@@ -140,3 +140,51 @@ project "Sandbox"
 		defines "KP_DIST"
 		runtime "Release"
 		optimize "on"
+
+project "Koopa-Editor"
+    location "Koopa-Editor"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "Koopa/lib/spdlog/include",
+        "Koopa/src",
+        "Koopa/lib",
+		"%{IncludeDir.GLM}",
+		"%{IncludeDir.ImGui}"
+    }
+
+    links
+    {
+        "Koopa"
+    }
+
+    filter "system:windows"
+        systemversion "latest"
+        
+    filter "configurations:Debug"
+        defines "KP_DEBUG"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines "KP_RELEASE"
+        runtime "Release"
+        optimize "on"
+
+    filter "configurations:Dist"
+        defines "KP_DIST"
+        runtime "Release"
+        optimize "on"		

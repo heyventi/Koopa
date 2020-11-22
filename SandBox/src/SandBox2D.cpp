@@ -21,8 +21,6 @@ void Sandbox2D::OnAttach()
     m_TextureTree = kp::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128,128 }, { 1, 2 });
 
     m_FlatColorShader = kp::Shader::Create("assets/shaders/FlatColor.glsl");
-
-    m_CameraController.SetZoomLevel(5.0f);
 }
 
 void Sandbox2D::OnDetach()
@@ -84,18 +82,18 @@ void Sandbox2D::OnImGuiRender()
 {
     KP_PROFILE_FUNCTION();
 
-    ImGui::Begin("Settings");
+	ImGui::Begin("Settings");
 
-    auto stats = kp::Renderer2D::GetStats();
-    ImGui::Text("Renderer2D Stats:");
-    ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-    ImGui::Text("Quads: %d", stats.QuadCount);
-    ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-    ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+	auto stats = kp::Renderer2D::GetStats();
+	ImGui::Text("Renderer2D Stats:");
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.QuadCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-    ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-    ImGui::End();
+	ImGui::End();
 }
 
 void Sandbox2D::OnEvent(kp::Event& e)
