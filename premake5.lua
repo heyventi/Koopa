@@ -16,6 +16,7 @@ IncludeDir["GLAD"] = "Koopa/lib/glad/include"
 IncludeDir["ImGui"] = "Koopa/lib/imgui"
 IncludeDir["GLM"] = "Koopa/lib/glm"
 IncludeDir["stb_image"] = "Koopa/lib/stb_image"
+IncludeDir["entt"] = "Koopa/lib/entt/include"
 
 group "Dependencies"
     include "Koopa/lib/GLFW"
@@ -59,7 +60,8 @@ project "Koopa"
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.GLM}",
-        "%{IncludeDir.stb_image}"		
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}"
 	}
 
 	links
@@ -115,7 +117,8 @@ project "Sandbox"
 		"Koopa/lib/spdlog/include",
 		"Koopa/src",
 		"%{IncludeDir.GLM}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -163,7 +166,8 @@ project "Koopa-Editor"
         "Koopa/src",
         "Koopa/lib",
 		"%{IncludeDir.GLM}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.entt}"
     }
 
     links
