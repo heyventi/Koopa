@@ -4,6 +4,7 @@
 #include "Components.h"
 #include "Koopa/Renderer/Renderer2D.h"
 
+#include "Entity.h"
 #include <glm/glm.hpp>
 
 namespace kp {
@@ -20,6 +21,19 @@ namespace kp {
 
 	Scene::Scene()
 	{
+		struct TransformComponent
+		{
+			glm::mat4 Transform;
+
+			TransformComponent() = default;
+			TransformComponent(const TransformComponent&) = default;
+			TransformComponent(const glm::mat4& transform)
+				: Transform(transform) {}
+
+			operator glm::mat4& () { return Transform; }
+			operator const glm::mat4& () const { return Transform; }
+		};
+
 #if ENTT_EXAMPLE_CODE
 		entt::entity entity = m_Registry.create();
 		m_Registry.emplace<TransformComponent>(entity, glm::mat4(1.0f));
@@ -49,9 +63,14 @@ namespace kp {
 	{
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity( const std::string& name )
 	{
-		return m_Registry.create();
+		Entity entity = {m_Registry.create(), this};
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
+		tag.Tag = name.empty() ? "Entity" : name;
+
+		return entity;
 	}
 
 	void Scene::OnUpdate(Timestep ts)
@@ -63,8 +82,6 @@ namespace kp {
 
 			Renderer2D::DrawQuad(transform, sprite.Color);
 		}
-
-
 	}
 
 }

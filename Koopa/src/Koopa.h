@@ -14,6 +14,7 @@
 #include "Koopa/ImGui/ImGuiLayer.h"
 
 #include "Koopa/Scene/Scene.h"
+#include "Koopa/Scene/Entity.h"
 #include "Koopa/Scene/Components.h"
 
 // ---Renderer------------------------
