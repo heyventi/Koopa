@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "Koopa/Renderer/Camera.h"
 
 namespace kp
 {
@@ -38,4 +39,14 @@ namespace kp
 			: Color(color) {}
 	};
 
+	struct CameraComponent
+	{
+		kp::Camera Camera;
+		bool Primary = true;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4 & projection)
+			: Camera(projection) {}
+	};
 }

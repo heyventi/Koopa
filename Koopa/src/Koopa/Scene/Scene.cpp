@@ -75,12 +75,38 @@ namespace kp {
 
 	void Scene::OnUpdate(Timestep ts)
 	{
-		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-		for (auto entity : group)
-		{
-			auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+		// Render 2D sprites
+		Camera* main_camera = nullptr;
+		glm::mat4* camera_transform = nullptr;
 
-			Renderer2D::DrawQuad(transform, sprite.Color);
+		{
+			auto group = m_Registry.view<TransformComponent, CameraComponent>();
+			for (auto entity : group)
+			{
+				auto& [transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
+
+				if (camera.Primary)
+				{
+					main_camera = &camera.Camera;
+					camera_transform = &transform.Transform;
+					break;
+				}
+			}
+		}
+
+		if (main_camera)
+		{
+			Renderer2D::BeginScene(main_camera->GetProjection(), *camera_transform);
+
+			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+			for (auto entity : group)
+			{
+				auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+				Renderer2D::DrawQuad(transform, sprite.Color);
+			}
+
+			Renderer2D::EndScene();
 		}
 	}
 
