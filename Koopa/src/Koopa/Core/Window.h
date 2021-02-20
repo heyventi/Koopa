@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kppch.h"
+#include <sstream>
 #include "koopa/Core/Base.h"
 #include "koopa/Events/Event.h"
 

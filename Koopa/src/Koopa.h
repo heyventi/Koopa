@@ -15,6 +15,7 @@
 
 #include "Koopa/Scene/Scene.h"
 #include "Koopa/Scene/Entity.h"
+#include "Koopa/Scene/ScriptableEntity.h"
 #include "Koopa/Scene/Components.h"
 
 // ---Renderer------------------------

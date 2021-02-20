@@ -1,7 +1,8 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Koopa/Renderer/Camera.h"
+#include "Koopa/Renderer/SceneCamera.h"
+#include "ScriptableEntity.h"
 
 namespace kp
 {
@@ -41,12 +42,27 @@ namespace kp
 
 	struct CameraComponent
 	{
-		kp::Camera Camera;
+		kp::SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4 & projection)
-			: Camera(projection) {}
+	};
+
+
+	struct NativeScriptComponent
+	{
+		ScriptableEntity* Instance = nullptr;
+
+		ScriptableEntity* (*InstantiateScript)();
+		void (*DestroyScript)(NativeScriptComponent*);
+
+		template<typename T>
+		void Bind()
+		{
+			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
+			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
+		}
 	};
 }

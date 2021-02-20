@@ -1,4 +1,4 @@
-// #include "config/version.h"
+﻿// #include "config/version.h"
 #ifndef ENTT_CONFIG_VERSION_H
 #define ENTT_CONFIG_VERSION_H
 

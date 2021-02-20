@@ -1,5 +1,8 @@
 #pragma once
 
+#include <functional>
+
+#include "Koopa/Debug/Instrumentor.h"
 #include "Koopa/Core/Base.h"
 
 namespace kp {

@@ -1,62 +1,67 @@
 #include "kppch.h"
-#include "WindowsWindow.h"
+#include "Platform/Windows/WindowsWindow.h"
 
 #include "Koopa/Core/Input.h"
+
 #include "Koopa/Events/ApplicationEvent.h"
 #include "Koopa/Events/MouseEvent.h"
 #include "Koopa/Events/KeyEvent.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
 #include "Koopa/Renderer/Renderer.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+
 namespace kp {
-	
-	static bool s_GLFWInitialized = false;
+
+	static uint8_t s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		KP_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Scope<Window> Window::Create(const WindowProps& props)
-	{
-		return CreateScope<WindowsWindow>(props);
-	}
-
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		KP_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		KP_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		KP_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
 		KP_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
-			// TODO: glfwTerminate on system shutdown
+			KP_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
-			KP_CORE_ASSERT(success, "Could not intialize GLFW!");
+			KP_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
 		}
 
+		{
+			KP_PROFILE_SCOPE("glfwCreateWindow");
 #if defined(KP_DEBUG)
-        if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
-            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 #endif
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		
 		m_Context = GraphicsContext::Create(m_Window);
 		m_Context->Init();
 
@@ -87,31 +92,32 @@ namespace kp {
 
 			switch (action)
 			{
-				case GLFW_PRESS:
-				{
-                    KeyPressedEvent event(static_cast<KeyCode>(key), 0);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-                    KeyReleasedEvent event(static_cast<KeyCode>(key));
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_REPEAT:
-				{
-                    KeyPressedEvent event(static_cast<KeyCode>(key), 1);
-					data.EventCallback(event);
-					break;
-				}
+			case GLFW_PRESS:
+			{
+				KeyPressedEvent event(key, 0);
+				data.EventCallback(event);
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				KeyReleasedEvent event(key);
+				data.EventCallback(event);
+				break;
+			}
+			case GLFW_REPEAT:
+			{
+				KeyPressedEvent event(key, 1);
+				data.EventCallback(event);
+				break;
+			}
 			}
 		});
 
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-            KeyTypedEvent event(static_cast<KeyCode>(keycode));
+
+			KeyTypedEvent event(keycode);
 			data.EventCallback(event);
 		});
 
@@ -121,18 +127,18 @@ namespace kp {
 
 			switch (action)
 			{
-				case GLFW_PRESS:
-				{
-                    MouseButtonPressedEvent event(static_cast<MouseCode>(button));
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-                    MouseButtonReleasedEvent event(static_cast<MouseCode>(button));
-					data.EventCallback(event);
-					break;
-				}
+			case GLFW_PRESS:
+			{
+				MouseButtonPressedEvent event(button);
+				data.EventCallback(event);
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				MouseButtonReleasedEvent event(button);
+				data.EventCallback(event);
+				break;
+			}
 			}
 		});
 
@@ -155,17 +161,29 @@ namespace kp {
 
 	void WindowsWindow::Shutdown()
 	{
+		KP_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+		{
+			glfwTerminate();
+		}
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		KP_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		KP_PROFILE_FUNCTION();
+
 		if (enabled)
 			glfwSwapInterval(1);
 		else
