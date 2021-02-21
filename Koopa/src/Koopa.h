@@ -5,6 +5,7 @@
 #include "Koopa/Core/Application.h"
 #include "Koopa/Core/Layer.h"
 #include "Koopa/Core/Log.h"
+#include "Koopa/Core/Assert.h"
 
 #include "Koopa/Core/Input.h"
 #include "Koopa/Core/KeyCodes.h"

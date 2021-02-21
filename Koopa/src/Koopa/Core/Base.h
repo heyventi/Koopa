@@ -5,16 +5,22 @@
 #include "Koopa/Core/PlatformDetection.h"
 
 #ifdef KP_DEBUG
-	#define KP_ENABLE_ASSERTS 
+#if defined(KP_PLATFORM_WINDOWS)
+#define KP_DEBUGBREAK() __debugbreak()
+#elif defined(KP_PLATFORM_LINUX)
+#include <signal.h>
+#define KP_DEBUGBREAK() raise(SIGTRAP)
+#else
+#error "Platform doesn't support debugbreak yet!"
+#endif
+#define KP_ENABLE_ASSERTS
+#else
+#define KP_DEBUGBREAK()
 #endif
 
-#ifdef KP_ENABLE_ASSERTS
-	#define KP_ASSERT(x, ...) { if(!(x)) { KOOPA_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define KP_CORE_ASSERT(x, ...) { if(!(x)) { KP_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#else
-	#define KP_ASSERT(x, ...)
-	#define KP_CORE_ASSERT(x, ...)
-#endif
+#define KP_EXPAND_MACRO(x) x
+#define KP_STRINGIFY_MACRO(x) #x
+
 
 #define BIT(x) (1 << x)
 
@@ -38,3 +44,6 @@ namespace kp {
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 }
+
+#include "Koopa/Core/Log.h"
+#include "Koopa/Core/Assert.h"
