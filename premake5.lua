@@ -17,11 +17,13 @@ IncludeDir["ImGui"] = "Koopa/lib/imgui"
 IncludeDir["GLM"] = "Koopa/lib/glm"
 IncludeDir["stb_image"] = "Koopa/lib/stb_image"
 IncludeDir["entt"] = "Koopa/lib/entt/include"
+IncludeDir["yaml_cpp"] = "Koopa/lib/yaml-cpp/include"
 
 group "Dependencies"
     include "Koopa/lib/GLFW"
     include "Koopa/lib/Glad"
     include "Koopa/lib/imgui"
+    include "Koopa/lib/yaml-cpp"
 group ""
 
 project "Koopa"
@@ -61,7 +63,8 @@ project "Koopa"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.GLM}",
         "%{IncludeDir.stb_image}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.yaml_cpp}"
 	}
 
 	links
@@ -69,6 +72,7 @@ project "Koopa"
 		"GLFW",
 		"GLAD",
 		"ImGui",
+        "yaml-cpp",
 		"opengl32.lib"
 	}
 
