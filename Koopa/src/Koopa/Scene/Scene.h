@@ -1,7 +1,8 @@
 #pragma once
 
-#include "entt.hpp"
 #include "Koopa/Core/Timestep.h"
+#include "Koopa/Renderer/EditorCamera.h"
+#include "entt.hpp"
 
 namespace kp 
 {
@@ -16,8 +17,11 @@ namespace kp
 		Entity CreateEntity(const std::string& name = std::string() );
 		void DestroyEntity(Entity entity);
 
-		void OnUpdate(Timestep ts);
+		void OnUpdateRuntime(Timestep ts);
+		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 		void OnViewportResize(uint32_t width, uint32_t height);
+
+		Entity GetPrimaryCameraEntity();
 
 	private:
 		template<typename T>

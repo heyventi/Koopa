@@ -13,3 +13,6 @@
 [submodule "Koopa/lib/yaml-cpp"]
 	path = Koopa/lib/yaml-cpp
 	url = https://github.com/thecherno/yaml-cpp
+[submodule "Koopa/lib/imguizmo"]
+	path = Koopa/lib/imguizmo
+	url = https://github.com/thecherno/imguizmo

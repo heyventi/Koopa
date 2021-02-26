@@ -18,6 +18,8 @@ IncludeDir["GLM"] = "Koopa/lib/glm"
 IncludeDir["stb_image"] = "Koopa/lib/stb_image"
 IncludeDir["entt"] = "Koopa/lib/entt/include"
 IncludeDir["yaml_cpp"] = "Koopa/lib/yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "Koopa/lib/imguizmo"
+
 
 group "Dependencies"
     include "Koopa/lib/GLFW"
@@ -46,7 +48,9 @@ project "Koopa"
 		"%{prj.name}/lib/glm/glm/**.hpp",
 		"%{prj.name}/lib/glm/glm/**.inl",
         "%{prj.name}/lib/stb_image/**.h",
-        "%{prj.name}/lib/stb_image/**.cpp"		
+        "%{prj.name}/lib/stb_image/**.cpp",
+        "%{prj.name}/lib/imguizmo/ImGuizmo.h",
+        "%{prj.name}/lib/imguizmo/ImGuizmo.cpp"        
 	}
 
 	defines
@@ -64,7 +68,8 @@ project "Koopa"
 		"%{IncludeDir.GLM}",
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.yaml_cpp}"
+        "%{IncludeDir.yaml_cpp}",
+        "%{IncludeDir.ImGuizmo}"
 	}
 
 	links
@@ -75,6 +80,9 @@ project "Koopa"
         "yaml-cpp",
 		"opengl32.lib"
 	}
+
+    filter "files:Koopa/lib/imguizmo/**.cpp"
+    	flags { "NoPCH" }
 
 	filter "system:windows"
 		systemversion "latest"
@@ -171,7 +179,8 @@ project "Koopa-Editor"
         "Koopa/lib",
 		"%{IncludeDir.GLM}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
     }
 
     links
