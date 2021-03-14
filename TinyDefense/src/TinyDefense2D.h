@@ -3,11 +3,11 @@
 #include "Koopa.h"
 #include "imgui/imgui.h"
 
-class Sandbox2D : public kp::Layer
+class TinyDefense2D : public kp::Layer
 {
 public:
-    Sandbox2D();
-    virtual ~Sandbox2D() = default;
+    TinyDefense2D();
+    virtual ~TinyDefense2D() = default;
 
     virtual void OnAttach() override;
     virtual void OnDetach() override;
